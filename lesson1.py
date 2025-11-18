@@ -41,3 +41,23 @@ for t in tuples_list:
     print(t)
 
 # Question a
+def find_min(a, key):
+    if not a:
+        raise ValueError("Empty sequence")
+    min_item = max_item = a[0]
+    min_key = max_key = key(a[0])
+    for item in a[1:]:
+        k = key(item)
+        if k < min_key:
+            min_key = k
+            min_item = item
+        if k > max_key:
+            max_key = k
+            max_item = item
+    return min_item, max_item
+
+if __name__ == "__main__":
+    tuples_list = create_random_tuples(100, 3, [int, float, str])
+    min_item, max_item = find_min(tuples_list, key=lambda x: x[2])
+    print(f"min={min_item[2]}")
+    print(f"max={max_item[2]}")

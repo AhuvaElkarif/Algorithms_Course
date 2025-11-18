@@ -36,10 +36,6 @@ def create_random_tuples(n, k, types=None):
 
     return result
 
-tuples_list = create_random_tuples(10, 3, [int, float, str])
-for t in tuples_list:
-    print(t)
-
 # Question a
 def find_min(a, key):
     if not a:
@@ -58,6 +54,41 @@ def find_min(a, key):
 
 if __name__ == "__main__":
     tuples_list = create_random_tuples(100, 3, [int, float, str])
+    for t in tuples_list:
+       print(t)
     min_item, max_item = find_min(tuples_list, key=lambda x: x[2])
     print(f"min={min_item[2]}")
     print(f"max={max_item[2]}")
+    
+# זמן הריצה הוא O(n) כי אנחנו עוברים על כל האיברים ברשימה פעם אחת בלבד.
+
+# Question b
+def insertion_sort(a, key):
+    for i in range(1, len(a)):
+        current_value = a[i]
+        current_key = key(current_value)
+        position = i
+
+        while position > 0 and key(a[position - 1]) > current_key:
+            a[position] = a[position - 1]
+            position -= 1
+
+        a[position] = current_value
+
+if __name__ == "__main__":
+    # יצירת 3 רשימות שונות של tuples
+    list1 = create_random_tuples(10, 3, [int, float, str])
+    list2 = create_random_tuples(10, 3, [int, float, str])
+    list3 = create_random_tuples(10, 3, [int, float, str])
+
+    # מיון לפי הפריט הראשון
+    insertion_sort(list1, key=lambda x: x[0])
+    print("Sorted by first item:", list1)
+
+    # מיון לפי הפריט השני
+    insertion_sort(list2, key=lambda x: x[1])
+    print("Sorted by second item:", list2)
+
+    # מיון לפי הפריט השלישי
+    insertion_sort(list3, key=lambda x: x[2])
+    print("Sorted by third item:", list3)
